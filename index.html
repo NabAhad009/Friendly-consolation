@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nabiha, this is for you</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--night:#1d1b3a;--dusk:#3b3470;--rose:#e8a5a0;--dawn:#ffd9b0;--cream:#fff8f1;--ink:#2a2745;--pitch:#2f6b4f;--soft:#6d6890}
+  html{scroll-behavior:smooth}
+  body{font-family:'Nunito',sans-serif;color:var(--ink);background:var(--cream);line-height:1.8;font-size:1.1rem}
+  h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1.12}
+  p{max-width:58ch}
+  section{padding:5rem 0}
+  .tint-a{background:#fff}
+  .tint-b{background:linear-gradient(180deg,var(--cream),#ffeede)}
+  h2{font-size:clamp(2.1rem,5.2vw,3.1rem);margin-bottom:.8rem}
+  .hook{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.55rem;color:var(--dusk);margin-bottom:1.3rem}
+
+  .hero{min-height:100vh;display:flex;align-items:center;text-align:center;color:#fff;
+    background:linear-gradient(180deg,var(--night),var(--dusk) 65%,#9a6f9e);position:relative;overflow:hidden}
+  .hero h1{font-size:clamp(2.6rem,8vw,5.2rem);margin-bottom:1rem}
+  .hero p{margin:0 auto 2rem;color:#e7e3ff;font-size:1.25rem}
+  .star{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;opacity:.7;animation:tw 4s ease-in-out infinite}
+  @keyframes tw{50%{opacity:.15}}
+
+  .click-btn{position:relative;border:0;border-radius:60px;padding:.95rem 2.4rem;font-weight:700;font-size:1.1rem;
+    background:linear-gradient(135deg,#ffd9b0,#f6a6a0);color:var(--night);cursor:pointer;
+    animation:pulse 1.8s ease-out infinite,wiggle 4s ease-in-out infinite;transition:transform .2s}
+  .click-btn::after{content:"\1F446";position:absolute;right:-.4rem;bottom:-1.5rem;font-size:1.6rem;animation:bob 1s ease-in-out infinite}
+  .click-btn:hover{transform:scale(1.07)}
+  .click-btn:focus-visible,.nav-link:focus-visible{outline:3px solid #fff;outline-offset:4px}
+  .click-btn.done{animation:none;opacity:.6;cursor:default}
+  .click-btn.done::after{display:none}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(246,166,160,.8)}100%{box-shadow:0 0 0 24px rgba(246,166,160,0)}}
+  @keyframes wiggle{0%,86%,100%{transform:rotate(0)}89%{transform:rotate(-4deg)}92%{transform:rotate(4deg)}95%{transform:rotate(-3deg)}}
+  @keyframes bob{50%{transform:translateY(-7px)}}
+
+  .secret{display:none;margin-top:2.4rem}
+  .secret.open{display:block;animation:rise .9s ease both}
+  @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .big-line{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.6rem,4vw,2.1rem);color:var(--dusk);
+    border-left:4px solid var(--rose);padding-left:1.1rem;margin:1.5rem 0;max-width:30ch}
+  .navbar{background:rgba(29,27,58,.88);backdrop-filter:blur(8px)}
+  .navbar-brand{font-family:'Cormorant Garamond',serif;color:var(--dawn)!important;font-size:1.4rem}
+  .navbar .nav-link{color:#e7e3ff;font-size:.95rem}
+
+  .note{background:#fff;border-radius:22px;padding:1.6rem;height:100%;box-shadow:0 18px 40px -22px rgba(59,52,112,.5)}
+  .note h3{font-size:1.5rem;color:var(--dusk)}
+  .note p{margin:0;color:var(--soft);font-size:1rem}
+
+  .letter{background:var(--night);color:#f1eeff;border-radius:28px;padding:clamp(1.8rem,5vw,3.2rem)}
+  .letter h2{color:var(--dawn)}.letter p{color:#e4e0fa}
+  .sign{font-family:'Cormorant Garamond',serif;font-size:2.1rem;color:var(--dawn);margin-top:1.2rem}
+
+  .truths{list-style:none;padding:0;margin:1.3rem 0 0}
+  .truths li{background:#fff;border-radius:16px;padding:.9rem 1.2rem;margin-bottom:.7rem;box-shadow:0 10px 26px -18px rgba(59,52,112,.6);opacity:0;transform:translateX(-14px)}
+  .secret.open .truths li{animation:slide .7s ease forwards}
+  .secret.open .truths li:nth-child(2){animation-delay:.5s}.secret.open .truths li:nth-child(3){animation-delay:1s}
+  @keyframes slide{to{opacity:1;transform:none}}
+
+  /* cricket */
+  .cricket{background:linear-gradient(180deg,#ffeede,#e3f1e8)}
+  #gameArea{background:transparent;padding:.5rem}
+  .pool{display:flex;flex-wrap:wrap;gap:.6rem}
+  .chip{border:2px solid var(--pitch);background:#fff;color:var(--pitch);border-radius:50px;padding:.45rem 1rem;font-weight:700;cursor:pointer;transition:all .15s}
+  .chip:hover{background:#e3f1e8}
+  .chip.on{background:var(--pitch);color:#fff}
+  .chip:disabled:not(.on){opacity:.4;cursor:not-allowed}
+  .chip:focus-visible,.btn-play:focus-visible{outline:3px solid var(--dusk);outline-offset:3px}
+  .team{background:var(--pitch);color:#fff;border-radius:20px;padding:1.3rem;height:100%}
+  .team.ahad{background:var(--dusk)}
+  .team h3{font-size:1.7rem;color:var(--dawn)}
+  .slot{padding:.45rem .2rem;border-bottom:1px dashed rgba(255,255,255,.3);min-height:2.4rem}
+  .slot.hidden-slot{opacity:.55;letter-spacing:.2em}
+  .slot.flip{animation:flip .6s ease}
+  @keyframes flip{from{transform:rotateX(90deg);opacity:0}to{transform:none;opacity:1}}
+  .btn-play{border:0;border-radius:50px;padding:.8rem 1.8rem;font-weight:700;background:var(--night);color:#fff;margin:.3rem}
+  .btn-play:disabled{opacity:.35;cursor:not-allowed}
+  .btn-play.alt{background:#fff;color:var(--night);border:2px solid var(--night)}
+  #verdict{font-family:'Cormorant Garamond',serif;font-size:1.7rem;color:var(--pitch);margin-top:1.2rem;min-height:3rem}
+  #shareNote{font-size:.95rem;color:var(--soft);min-height:1.5rem}
+
+  /* finale + sabr */
+  .finale{background:radial-gradient(circle at 50% 0%,#4a3f86,var(--night) 70%);color:#fff;text-align:center;padding:5.5rem 1rem}
+  .poem{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.5rem,3.6vw,2.1rem);color:#f4e9ff;max-width:30ch;margin:1.8rem auto;line-height:1.7}
+  .poem span{display:block}
+  .vow{font-family:'Cormorant Garamond',serif;font-size:clamp(2.1rem,5.5vw,3.5rem);color:var(--dawn);margin:2rem auto 1rem;max-width:20ch}
+  .heart{display:inline-block;animation:beat 1.4s ease-in-out infinite}
+  @keyframes beat{0%,100%{transform:scale(1)}20%{transform:scale(1.25)}40%{transform:scale(1)}}
+  .sabr{background:linear-gradient(180deg,#ffb88a,#ffe3c2 55%,var(--cream));text-align:center;padding:6rem 1rem 7rem;color:var(--night)}
+  .sabr h2{font-size:clamp(2.4rem,6.5vw,4.2rem)}
+  .sabr p{margin:1rem auto;font-size:1.3rem}
+  .sun{font-size:3.5rem;animation:bob 3s ease-in-out infinite}
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .star,.click-btn,.click-btn::after,.heart,.sun{animation:none}
+    .secret.open{animation:none}.secret.open .truths li{animation:none;opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#top">For Nabiha</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-label="Menu"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#alone">You're not alone</a></li>
+        <li class="nav-item"><a class="nav-link" href="#numb">The numbness</a></li>
+        <li class="nav-item"><a class="nav-link" href="#hope">Baji</a></li>
+        <li class="nav-item"><a class="nav-link" href="#sorry">Sorry</a></li>
+        <li class="nav-item"><a class="nav-link" href="#cricket">Cricket</a></li>
+        <li class="nav-item"><a class="nav-link" href="#sabr">Patience</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div id="stars"></div>
+  <div class="container">
+    <h1>Nabiha,<br>this is not a lecture.</h1>
+    <p>It's just a small letter from Ahad. Will you open it?</p>
+    <button class="click-btn" data-target="s0" type="button">Click me</button>
+    <div class="secret" id="s0">
+      <p class="mx-auto mt-5" style="font-size:1.35rem">I didn't come to fix you. I only came to sit beside you. Keep going, there's something I want to tell you.</p>
+    </div>
+  </div>
+</header>
+
+<section id="alone" class="tint-a">
+  <div class="container">
+    <h2>Do you feel your enthusiasm is gone?</h2>
+    <p class="hook">I think it has only gone into hiding.</p>
+    <button class="click-btn" data-target="s1" type="button">Click me</button>
+    <div class="secret" id="s1">
+      <p>A heart that feels nothing wouldn't hurt this much. Your love isn't gone. It's just tired.</p>
+      <div class="big-line">Even in this darkness, a small light is burning beside you.</div>
+      <p>My bad days are passing, and yours will pass too. You are not alone. I am yours always, no matter what.</p>
+    </div>
+  </div>
+</section>
+
+<section id="numb" class="tint-b">
+  <div class="container">
+    <h2>You're not broken. You're tired.</h2>
+    <p class="hook">Want to know what's happening inside?</p>
+    <button class="click-btn" data-target="s2" type="button">Click me</button>
+    <div class="secret" id="s2">
+      <p>The nervous system can only hold so many emotions. When the pain becomes too much, it goes numb to protect you. None of this is your fault.</p>
+      <div class="row g-4 mt-1">
+        <div class="col-md-4"><div class="note"><h3>What you want to let go of</h3><p>You want to let something go, but you can't, and you can't talk about it either. That's okay.</p></div></div>
+        <div class="col-md-4"><div class="note"><h3>No questions</h3><p>I won't ask anything. Speak when you're ready. Until then, I'm right here.</p></div></div>
+        <div class="col-md-4"><div class="note"><h3>Slowly</h3><p>Feelings return quietly, the way morning does.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="hope" class="tint-a">
+  <div class="container">
+    <h2>Baji wouldn't want to see you this dimmed.</h2>
+    <p class="hook">Not with anger, but with so much love. Click.</p>
+    <button class="click-btn" data-target="s3" type="button">Click me</button>
+    <div class="secret" id="s3">
+      <p>Losing Baji leaves the biggest emptiness in the heart, and I won't call it small. But it doesn't mean your life is over. Her love lives on inside you.</p>
+      <p>And losing me is not an option either. That door is closed for good.</p>
+      <ul class="truths">
+        <li>Baji's love never ends.</li>
+        <li>I'm with you and I'm not going anywhere.</li>
+        <li>A day will come when your life feels the most beautiful it ever has. Fight for that day.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="sorry" class="tint-b">
+  <div class="container">
+    <div class="letter">
+      <h2>I owe you an apology.</h2>
+      <p class="hook" style="color:#ffd9b0">I've been thinking for days about how to say this.</p>
+      <button class="click-btn" data-target="s4" type="button">Click me</button>
+      <div class="secret" id="s4">
+        <p>I'm sorry for everything I did that hurt you. I'm sorry for the times you needed me and I wasn't there.</p>
+        <p>I will make things right, and I will never let this relationship end. You don't owe me anything, not a smile, not a word. Just let me stay.</p>
+        <div class="sign">Always yours, Ahad</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cricket" class="cricket">
+  <div class="container">
+    <h2>Let's enjoy a moment we will share after we're married.</h2>
+    <p class="hook">Here's a small match for now: your team vs mine.</p>
+    <button class="click-btn" data-target="s5" type="button">Click me</button>
+    <div class="secret" id="s5">
+      <div id="gameArea">
+        <p class="mb-3"><strong>Choose your 5 players</strong> <span id="pickCount" class="ms-2" style="color:var(--pitch)">0 / 5</span></p>
+        <div id="pool" class="pool"></div>
+        <div class="row g-4 mt-1">
+          <div class="col-md-6"><div class="team"><h3>Nabiha's team</h3><div id="herTeam"></div></div></div>
+          <div class="col-md-6"><div class="team ahad"><h3>Ahad's team</h3><div id="hisTeam"></div></div></div>
+        </div>
+        <div id="verdict" class="text-center" aria-live="polite"></div>
+      </div>
+      <div class="text-center mt-3">
+        <button class="btn-play" id="revealBtn" type="button" disabled>Reveal Ahad's team</button>
+        <button class="btn-play alt" id="resetBtn" type="button" hidden>Pick again</button>
+        <button class="btn-play alt" id="shotBtn" type="button" hidden>Send a screenshot to Ahad</button>
+        <div id="shareNote" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="finale" id="finale">
+  <div class="container">
+    <h2 style="color:var(--dawn)">One last thing.</h2>
+    <button class="click-btn mt-3" data-target="s6" type="button">Click me</button>
+    <div class="secret" id="s6">
+      <div class="vow">You are mine, and I will never let go of your hand.</div>
+      <div class="poem">
+        <span>However long the night, the morning will come,</span>
+        <span>your hand in mine, every hardship will be undone.</span>
+      </div>
+      <p class="mx-auto" style="color:#e4e0fa">I love you, Nabiha. <span class="heart">&#10084;&#65039;</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="sabr" id="sabr">
+  <div class="container">
+    <div class="sun">&#127749;</div>
+    <h2>Everything will be fine soon.<br>Just have a little patience.</h2>
+    <p>Today feels numb, but it won't stay that way. We'll get through this night together.</p>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+  const stars = document.getElementById('stars');
+  for (let i = 0; i < 45; i++) {
+    const s = document.createElement('span');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 90 + '%';
+    s.style.animationDelay = (Math.random() * 4) + 's';
+    stars.appendChild(s);
+  }
+
+  document.querySelectorAll('.click-btn[data-target]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.getElementById(btn.dataset.target).classList.add('open');
+      btn.classList.add('done');
+      btn.textContent = 'Keep reading';
+      btn.disabled = true;
+    });
+  });
+
+  // ===== CRICKET GAME =====
+  // "p" is a hidden strength score (never shown). Edit names freely.
+  const POOL = [
+    {n:"Virat Kohli",p:96},{n:"Rohit Sharma",p:94},{n:"Rashid Khan",p:92},{n:"Mohd. Shami",p:91},
+    {n:"Dale Steyn",p:93},{n:"Pat Cummins",p:93},{n:"AB de Villiers",p:96},{n:"Mitchell Starc",p:92},
+    {n:"Abhishek Sharma",p:88},{n:"Travis Head",p:91},{n:"MS Dhoni",p:95},{n:"Kane Williamson",p:92},{n:"Glenn Phillips",p:88}
+  ];
+  const AHAD = [
+    {n:"Haris Rauf",p:78},{n:"Shakib Al Hasan",p:80},{n:"Mitchell Johnson",p:79},{n:"Trent Boult",p:81},{n:"Quinton de Kock",p:80}
+  ];
+  const $ = id => document.getElementById(id);
+  const pool=$('pool'),herT=$('herTeam'),hisT=$('hisTeam'),cnt=$('pickCount'),rev=$('revealBtn'),
+        rst=$('resetBtn'),shot=$('shotBtn'),verdict=$('verdict'),note=$('shareNote');
+  let picks=[],revealed=false;
+  const sum=a=>a.reduce((t,x)=>t+x.p,0);
+
+  function hiddenSlots(){hisT.innerHTML='';for(let i=0;i<5;i++)hisT.insertAdjacentHTML('beforeend','<div class="slot hidden-slot">? ? ?</div>');}
+  function draw(){
+    cnt.textContent=picks.length+' / 5';
+    herT.innerHTML='';
+    for(let i=0;i<5;i++){const x=picks[i];herT.insertAdjacentHTML('beforeend',x?`<div class="slot">${x.n}</div>`:'<div class="slot" style="opacity:.4">Empty spot</div>');}
+    pool.querySelectorAll('.chip').forEach(c=>{const on=picks.some(x=>x.n===c.dataset.n);c.classList.toggle('on',on);c.setAttribute('aria-pressed',on);c.disabled=revealed||(!on&&picks.length>=5);});
+    rev.disabled=picks.length!==5||revealed;
+  }
+  POOL.forEach(x=>{
+    const b=document.createElement('button');b.type='button';b.className='chip';b.dataset.n=x.n;b.textContent=x.n;
+    b.addEventListener('click',()=>{const i=picks.findIndex(y=>y.n===x.n);if(i>-1)picks.splice(i,1);else if(picks.length<5)picks.push(x);draw();});
+    pool.appendChild(b);
+  });
+  rev.addEventListener('click',()=>{
+    revealed=true;
+    hisT.innerHTML='';
+    AHAD.forEach(x=>hisT.insertAdjacentHTML('beforeend',`<div class="slot flip">${x.n}</div>`));
+    // Safety: her five always rate higher than Ahad's five.
+    verdict.textContent="Going by the stats, your team is stronger and more complete than Ahad's team. 🏆";
+    rst.hidden=false;shot.hidden=false;rev.hidden=true;draw();
+  });
+  rst.addEventListener('click',()=>{picks=[];revealed=false;verdict.textContent='';note.textContent='';rst.hidden=true;shot.hidden=true;rev.hidden=false;hiddenSlots();draw();});
+
+  // Screenshot -> share sheet (WhatsApp etc.) or download
+  shot.addEventListener('click',async()=>{
+    note.textContent='Creating the screenshot...';
+    try{
+      const canvas=await html2canvas($('gameArea'),{backgroundColor:'#e9f4ec',scale:2});
+      const blob=await new Promise(r=>canvas.toBlob(r,'image/png'));
+      const file=new File([blob],'nabiha-vs-ahad.png',{type:'image/png'});
+      if(navigator.canShare&&navigator.canShare({files:[file]})){
+        await navigator.share({files:[file],title:"Nabiha's team won!",text:"My team is better than Ahad's team 😄"});
+        note.textContent='Shared!';
+      }else{
+        const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='nabiha-vs-ahad.png';a.click();
+        note.textContent='Image saved. Now send it to Ahad.';
+      }
+    }catch(e){note.textContent="Couldn't share. Please take a screenshot on your phone and send it to Ahad.";}
+  });
+  hiddenSlots();draw();
+</script>
+</body>
+</html>
